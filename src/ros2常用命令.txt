@@ -1,0 +1,109 @@
+ros2常用命令
+
+启动节点
+ros2 run
+
+打开 rqt 工具
+rqt
+
+查看 ROS 版本
+echo $ROS-DISTRO
+
+查看 AMENT_PREFIX_PATH
+帮助系统找到 ROS 2 相关的包、库、头文件以及可执行文件的安装路径。
+echo $AMENT-PREFIX-PATH
+
+查询节点列表
+ros2 node list
+
+创建功能包
+ros2 pkg create <功能包名> --build-type ament_cmake --dependencies rclcpp <其他依赖名> --license Apache-2.0
+
+
+构建功能包
+colcon build
+
+
+查看节点信息
+ros2 node info <节点名>
+
+------------------------------------------------------------------------
+
+命令行订阅话题
+ros2 topic echo <话题名>
+
+查看话题具体信息
+ros2 topic info <话题名> -v
+
+
+查看消息接口的详细定义
+ros2 interface show <消息名>
+
+发布消息
+ros2 topic pub <消息名> <具体内容>
+
+查看话题列表
+ros2 topic list -v
+
+
+创建一个接口功能包
+ros2 pkg create <功能包名> --build-type ament_cmake --dependencies rosidl_default_generators builtin_interfaces --license Apache-2.0
+
+builtin_interfaces 是 ROS2 中已有的一个消息接口功能包，可以使用其时间接口 Time，表示已记录信息的时间。
+rosidl_default_generators 用于将自定义的消息文件转换为 C++ 源码的模块。
+
+-------------------------------------------------------------
+查询服务列表和对应接口
+
+ros2 service list -t
+查看服务接口的详细定义
+
+ros2 interface show <接口名>
+调用服务
+
+ros2 service call <服务名> <接口名> <具体信息>
+
+--------------------------------------------------------------------
+
+查看参数列表
+ros2 param list
+
+查看指定节点的参数描述
+ros2 param describe <节点名> <参数名>
+
+获取节点参数值
+ros2 param get <节点名> <参数名>
+
+修改参数值
+ros2 param set <节点名> <参数名> <参数值>
+
+将参数导出到文件
+ros2 param dump <节点名> > <参数文件>
+
+运行节点时指定参数文件
+ros2 run <功能包> <节点名> --ros-args --params-file <参数文件>
+
+-------------------------------------------------------------------------------
+发布坐标关系
+ros2 run tf2_ros static_transform_publisher <--参数名> <参数值> ... --frame-id <父节点名> --child-frame-id <子节点名>
+
+
+使用命令行计算坐标之间的关系
+ros2 run tf2_ros tf2_echo <link1> <link2>
+
+
+使用 view_frames 查看坐标连接关系
+ros2 run tf2_tools view_frames
+
+
+
+
+
+
+
+
+
+
+
+
+
